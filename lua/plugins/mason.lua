@@ -13,9 +13,10 @@ return {
             require("mason-lspconfig").setup({
                 ensure_installed =  {
                     "bashls",
-                    "harper_ls",
+                    -- "harper_ls",
                     "arduino_language_server",
                     "clangd",
+                    "lua_ls",
                     "cssls",
                     "html",
                     -- "htmx",
@@ -40,15 +41,16 @@ return {
 
     },
     {
-        "neovim/nvim-lspconfig",
+        "neovim/nvim-lspconfig", 
         config = function()
             local lspconfig = require("lspconfig")
             lspconfig.bashls.setup({})
             lspconfig.asm_lsp.setup({})
             lspconfig.arduino_language_server.setup({})
             lspconfig.cssls.setup({})
+            lspconfig.lua_ls.setup({})
             lspconfig.clangd.setup({})
-            lspconfig.harper_ls.setup({})
+            -- lspconfig.harper_ls.setup({})
             lspconfig.basedpyright.setup({})
             lspconfig.rust_analyzer.setup({})
             lspconfig.html.setup({})
@@ -67,7 +69,10 @@ return {
 
             vim.keymap.set('n','K', vim.lsp.buf.hover, {})
             vim.keymap.set('n','<leader>gd', vim.lsp.buf.definition, {})
-            vim.keymap.set({'n'}, '<leader>ca', vim.lsp.buf.code_action, {})
+            vim.keymap.set({'n', 'v'}, '<leader>ca', vim.lsp.buf.code_action, {})
+            vim.keymap.set('n', '<leader>gr', vim.lsp.buf.references, {})
         end
     }
 }
+
+
