@@ -20,9 +20,9 @@ vim.keymap.set("n", "<leader>gd", vim.lsp.buf.definition, {})
 vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, {})
 vim.keymap.set("n", "<leader>gr", vim.lsp.buf.references, {})
 
-vim.keymap.set("n", "<leader>gf", vim.lsp.buf.format, {})
+vim.keymap.set({ "n", "v" }, "<leader>gf", vim.lsp.buf.format, {})
 
-vim.lsp.set_log_level("debug")
+
+-- vim.lsp.set_log_level("debug")
 -- local builtin=require("telescope.builtin")
 -- vim.keymap.set("n", "<C-p>", builtin.find_files, {})
-

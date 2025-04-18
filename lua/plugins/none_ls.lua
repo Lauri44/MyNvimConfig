@@ -14,6 +14,10 @@ return {
                 null_ls.builtins.formatting.prettier,
                 null_ls.builtins.formatting.black,
                 null_ls.builtins.formatting.isort,
+                null_ls.builtins.formatting.clang_format.with(
+                    {filetypes = {"c", "cpp",},}
+                ),
+                null_ls.builtins.formatting.csharpier,
 
                 -- null_ls.builtins.completion.spell,
                 require("none-ls.diagnostics.eslint"), -- requires ntone-ls-extras.nvim

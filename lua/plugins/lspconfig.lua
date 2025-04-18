@@ -10,11 +10,13 @@ return {
         config = function()
             require("mason-lspconfig").setup({
                 ensure_installed = {
+                    -- "ast_grep",
                     "lua_ls",
                     "eslint",
                     "bashls",
                     -- "harper_ls",
                     "arduino_language_server",
+                    -- "jedi_language_server",
                     "clangd",
                     "cssls",
                     "html",
@@ -39,14 +41,21 @@ return {
     },
     {
         "neovim/nvim-lspconfig",
+        dependencies = { "lukas-reineke/lsp-format.nvim" },
         config = function()
+            require("lsp-format").setup({
+                c = { tab_width = 4 },
+            })
+            local clang_format = [[clang-format --style={"TabWdith:}]]
+
             local lspconfig = require("lspconfig")
 
-            local capabilities = require('cmp_nvim_lsp').default_capabilities()
+            local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
-            local opts = { capabilities = capabilities }
-
+            local opts = { capabilities = capabilities,} --on_attach = require("lsp-format").on_attach}
+            -- lspconfig.ast_grep.setup(opts)
             lspconfig.lua_ls.setup(opts)
+            -- lspconfig.jedi_language_server.setup(opts)
             lspconfig.bashls.setup(opts)
             lspconfig.asm_lsp.setup(opts)
             lspconfig.arduino_language_server.setup(opts)
@@ -69,14 +78,12 @@ return {
             lspconfig.powershell_es.setup(opts)
             lspconfig.perlnavigator.setup(opts)
             lspconfig.jinja_lsp.setup(opts)
-            vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-                vim.lsp.diagnostic.on_publish_diagnostics, {
+            vim.lsp.handlers["textDocument/publishDiagnostics"] =
+                vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
                     virtual_text = true,
                     underline = true,
                     signs = true,
-                }
-            )
-
-        end
-
-    }}
+                })
+        end,
+    },
+}
