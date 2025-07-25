@@ -26,3 +26,19 @@ vim.keymap.set({ "n", "v" }, "<leader>gf", vim.lsp.buf.format, {})
 -- vim.lsp.set_log_level("debug")
 -- local builtin=require("telescope.builtin")
 -- vim.keymap.set("n", "<C-p>", builtin.find_files, {})
+vim.api.nvim_create_autocmd({ 'BufEnter', 'BufWinEnter' }, {
+	pattern = { "*.axaml" },
+	callback = function(event)
+		vim.lsp.start {
+			name = "avalonia",
+			cmd = { "avalonia-ls" },
+			root_dir = vim.fn.getcwd(),
+		}
+	end
+})
+vim.filetype.add({
+	extension = {
+		axaml = "xml",
+	},
+})
+
